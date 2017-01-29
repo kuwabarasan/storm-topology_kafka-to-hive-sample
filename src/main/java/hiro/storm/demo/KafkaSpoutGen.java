@@ -22,7 +22,7 @@ public class KafkaSpoutGen {
 
         BrokerHosts hosts = new ZkHosts(props.getProperty(KAFKA_ZKCONNECTSTRING));
         SpoutConfig spoutConfig = new SpoutConfig(hosts, props.getProperty(KAFKA_TOPIC), props.getProperty(KAFKA_ZKROOT), props.getProperty(KAFKA_SPOUTID));
-        spoutConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
+        spoutConfig.scheme = new SchemeAsMultiScheme(new HiroScheme());
         spoutConfig.securityProtocol=props.getProperty(KAFKA_PROTOCOL);
 
         return new KafkaSpout(spoutConfig);

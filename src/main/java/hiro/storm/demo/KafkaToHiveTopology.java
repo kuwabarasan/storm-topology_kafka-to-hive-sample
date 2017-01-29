@@ -26,12 +26,13 @@ public class KafkaToHiveTopology {
     public static void main(String[] args) throws Exception {
 
         // Main arguments
+        // @param: submission instance name
         // @param: properties file path as argument
 
         // Load properties
         Properties props;
         try {
-            props = loadProperties(args[0]);
+            props = loadProperties(args[1]);
         } catch (IOException e) {
             return;
         }
@@ -48,9 +49,9 @@ public class KafkaToHiveTopology {
             .shuffleGrouping("messages");
 
         try {
-            StormSubmitter.submitTopology(args[1], config, builder.createTopology());
+            StormSubmitter.submitTopology(args[0], config, builder.createTopology());
         } catch (Exception e) {
-            LOG.error("Error submitting topology to cluster: " + e);
+            LOG.error("Error submitting topology to cluster", e);
         }
     }
 

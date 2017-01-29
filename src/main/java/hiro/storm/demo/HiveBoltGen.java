@@ -42,8 +42,10 @@ public class HiveBoltGen {
     public static boolean isSecure() {
         Configuration configuration = new Configuration();
         configuration.addResource("hive-site.xml");
-        if (configuration.get("hive.metastore.sasl.enabled").equalsIgnoreCase("true"))
+        if (configuration.get("hive.metastore.sasl.enabled") == null)
+            LOG.info("Property 'hive.metastore.sasl.enabled' not found in hive-site.xml.");
+        else if(configuration.get("hive.metastore.sasl.enabled").equalsIgnoreCase("true"))
             return true;
-        else return false;
+        return false;
     }
 }
